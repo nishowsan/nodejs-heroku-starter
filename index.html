@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, 
+    user-scalable=no, initial-scale=1.0, maximum-scale=1.0, 
+    minimum-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <style>
+    body{
+        margin-top: 30px;
+    }
+    .well h3{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                    <h3>Online Users</h3>
+                    <ul class="list-group" id="users"></ul>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="chat"></label>
+                <div class="chat"id="chat" name="chat"></div>
+                <form id="messageForm">
+                    <div class="form-group">
+                        <label for="textarea">Message</label>
+                        <textarea name="textarea" 
+                        id="message" cols="30" rows="10" class="form-control">
+                        </textarea>
+                        <hr>
+                        <input type="submit" name="" 
+                        value="Send" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function(){
+        var socket = io.connect();
+        var $messageForm = $('#messageForm');
+        var $message = $('#message');
+        var $chat = $('#chat');
+
+        $messageForm.submit(function(event){
+            event.preventDefault();
+            socket.emit('send message',$message.val());
+            $message.val('');
+        });
+        socket.on('new message',function(data){
+            $chat.append('<div class="well">'+data.msg+'</div>')
+        });
+    });
+    </script>
+</body>
+</html>

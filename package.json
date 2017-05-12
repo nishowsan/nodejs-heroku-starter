@@ -1,0 +1,21 @@
+{
+  "name": "IoChat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "socket.io": "^1.7.2"
+  }
+}
